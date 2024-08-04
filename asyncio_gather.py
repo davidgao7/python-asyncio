@@ -24,17 +24,22 @@ async def get_random_pokemon_name() -> str:
 
 
 async def main() -> None:
-
     # synchronous call
     time_before = perf_counter()
     for _ in range(20):
-        get_random_pokemon_name_sync()
+        pokemon_name = (
+            get_random_pokemon_name_sync()
+        )  # wait for every request to finish
+        print(pokemon_name)
     print(f"Total time (synchronous): {perf_counter() - time_before}")
 
     # asynchronous call
     time_before = perf_counter()
-    await asyncio.gather(*[get_random_pokemon_name() for _ in range(20)])
+
+    # use asyncio.gather(sequence of get pokemon name calls)
+    result = await asyncio.gather(*[get_random_pokemon_name() for _ in range(20)])
+    print(result)
     print(f"Total time (asynchronous): {perf_counter() - time_before}")
 
 
-asyncio.run(main())
+asyncio.run(main())  # run asyncriouslly

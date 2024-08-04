@@ -25,8 +25,7 @@ async def send_async_request(url: str) -> int:
 
 
 async def main() -> None:
-
-    status_code, _ = await asyncio.gather(
+    status_code, _ = await asyncio.gather(  # get each async function result
         send_async_request("https://www.arjancodes.com"), counter()
     )
     print(f"Got HTTP response with status {status_code}.")
