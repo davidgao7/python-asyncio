@@ -3,6 +3,8 @@ from random import randint
 from typing import AsyncIterable
 
 from req_http import http_get
+from time import perf_counter
+
 
 # The highest Pokemon id
 MAX_POKEMON = 898
@@ -22,14 +24,20 @@ async def next_pokemon(total: int) -> AsyncIterable[str]:
 
 
 async def main():
-
     # retrieve the next 10 pokemon names
+    time_before = perf_counter()
+
     async for name in next_pokemon(10):
         print(name)
 
+    print(f"Total time (asynchronous loop): {perf_counter() - time_before}")
+
     # asynchronous list comprehensions
+    time_before = perf_counter()
+
     names = [name async for name in next_pokemon(10)]
     print(names)
+    print(f"Total time (asynchronous list): {perf_counter() - time_before}")
 
 
 asyncio.run(main())
