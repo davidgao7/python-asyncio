@@ -20,11 +20,13 @@ def send_request(url: str) -> int:
     return response.status_code
 
 
+# a wrapper function that turns a synchronous function into an asynchronous
 async def send_async_request(url: str) -> int:
     return await asyncio.to_thread(send_request, url)
 
 
 async def main() -> None:
+    # turn send request into an asynchronous program
     status_code, _ = await asyncio.gather(  # get each async function result
         send_async_request("https://www.arjancodes.com"), counter()
     )

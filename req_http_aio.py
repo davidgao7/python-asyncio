@@ -7,6 +7,6 @@ JSONList = list[JSON]
 
 
 async def http_get(url: str) -> JSONObject:
-    async with aiohttp.ClientSession() as session:
+    async with aiohttp.ClientSession() as session:  # asyncronous HTTP
         async with session.get(url) as response:
             return await response.json()

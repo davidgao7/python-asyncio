@@ -14,6 +14,7 @@ async def counter(until: int = 10) -> None:
         print(f"{i}: Was asleep for {now - last}s")
 
 
+# NOTE: correct way is to turn this into a synchronous function
 def send_request(url: str) -> int:
     print("Sending HTTP request")
     response = requests.get(url)
@@ -23,6 +24,7 @@ def send_request(url: str) -> int:
 async def main() -> None:
     task = asyncio.create_task(counter())
 
+    # NOTE: This is not correct since send_requrest is not cocurrent
     status_code = send_request("https://www.arjancodes.com")
     print(f"Got HTTP response with status {status_code}")
 

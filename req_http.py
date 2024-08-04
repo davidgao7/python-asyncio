@@ -9,9 +9,11 @@ JSONList = list[JSON]
 
 
 def http_get_sync(url: str) -> JSONObject:
+    # sync version
     response = requests.get(url)
     return response.json()
 
 
 async def http_get(url: str) -> JSONObject:
+    # async version
     return await asyncio.to_thread(http_get_sync, url)
